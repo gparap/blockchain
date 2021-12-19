@@ -1,0 +1,15 @@
+{
+  "name": "EthereumTestRPC",
+  "version": "1.0.0",
+  "description": "Connection with Ethereum TestRPC blockchain emulator",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "gparap",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.2"
+  }
+}
