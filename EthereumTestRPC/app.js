@@ -2,21 +2,24 @@
 var express = require('express');
 var app = express();
 
-var port = 9999;
-
-// create a response object to send
-var responseObj = {key: "response object value"};
+// create a web3 instance and set a provider
+const Web3 = require('web3');
+var web3 = new Web3('http://localhost:8545');
 
 // create a basic route 
 app.get('/', (request, response) => {
     response.sendFile(__dirname + '/index.html');
 });
 
-// create a route for pinging the web server
-app.get('/ping', (request, response) => {
-    // response.send("Pinging port " + port);
-    response.send(JSON.stringify(responseObj));
+// create a route for getting the blockchain accounts
+app.get('/blockchain-accounts', (request, response) => {
+    // send a list of accounts the node controls
+    web3.eth.getAccounts(function(error, addresses) {
+        if (error == null) {
+            response.send(JSON.stringify(addresses));
+        }
+    });
 });
 
 // listen for connections
-app.listen(port);
+app.listen(9999);

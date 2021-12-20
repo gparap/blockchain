@@ -11,22 +11,32 @@
 </head>
 
 <body>
-    <h1 id="response">404</h1>
-    <button onclick="pingServer()">ping server</button>
-
+    <button onclick="getBlockchainAccounts()">get blockchain accounts</button>
+    <p id="accounts"></p>
+    
     <script>
         // request data from a web server and display it
-        function pingServer() {
+        function getBlockchainAccounts() {
             var xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
-                    //parse the response object that was sent
-                    var responseObj = JSON.parse(this.responseText);
+                    //parse the response that was sent
+                    var response = this.responseText;
+                    let accounts = response.split(",");
+                    for (var i=0; i<accounts.length; i++){
+                        // remove brackets
+                        if (i==0) { accounts[i] = accounts[i].replace("[", ""); }
+                        if (i==accounts.length-1){ accounts[i] = accounts[i].replace("]", ""); }
 
-                    document.getElementById("response").innerHTML = responseObj.key;
+                        // remove quotations
+                        accounts[i] = accounts[i].replaceAll("\"", "");
+                        
+                        // display blockchain accounts
+                        document.getElementById("accounts").innerHTML += accounts[i] + "<BR>";
+                    }
                 }
             };
-            xhttp.open("GET", "ping", true);
+            xhttp.open("GET", "blockchain-accounts", true);
             xhttp.send();
         }
     </script>
