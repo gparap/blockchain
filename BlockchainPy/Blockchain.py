@@ -1,5 +1,7 @@
+# A blockchain
 # Copyright (c) 2022 gparap
 import datetime
+import Block
 
 
 class Blockchain:
@@ -8,21 +10,24 @@ class Blockchain:
         self.genesis()
 
     def genesis(self):
-        self.create_block(datetime.datetime, 'genesis', '', '0', '0', True)  # create genesis block
+        block = Block.Block('0', str(datetime.datetime.now()), 'genesis', '', '0', '0', True)
+        self.chain.append(block)
         self.print_feedback("Genesis block created successfully...")
         pass
 
-    def create_block(self, timestamp, data, nonce, prev_hash, self_hash, proof_of_work):
-        """
-        Creates a new block
-            :param timestamp:        The timestamp of the block creation
-            :param data:             The block's data
-            :param nonce:            The block's nonce data
-            :param prev_hash:        The hash of the previous block in the chain
-            :param self_hash:        The block's hash
-            :param proof_of_work:    Confirmation that the block was mined appropriately
-        """
+    def create_block(self, data, nonce, prev_hash, self_hash, proof_of_work):
+        # find next position in the chain
+        index = len(self.chain)
+
+        # get the genesis timestamp
+        timestamp = str(datetime.datetime.now())
+
+        # create a new block and add it to the chain
+        block = Block.Block(index, timestamp, data, nonce, prev_hash, self_hash, True)
+        self.chain.append(block)
+        self.print_feedback("Block at index: " + str(index) + " created successfully...")
         pass
 
-    def print_feedback(self, value):
+    @staticmethod
+    def print_feedback(value):
         print(f'{value}')

@@ -1,7 +1,13 @@
 # Copyright (c) 2022 gparap
 import Blockchain
-import datetime
 
 if __name__ == '__main__':
     # create blockchain
-    Blockchain.Blockchain().create_block(datetime.datetime, 'genesis', '', '0', '0', True)
+    blockchain = Blockchain.Blockchain()
+
+    # create some test blocks
+    blockchain.create_block(data='block 1', nonce='', prev_hash='TODO', self_hash='TODO', proof_of_work=True)
+    blockchain.create_block(data='block 2', nonce='', prev_hash='TODO', self_hash='TODO', proof_of_work=True)
+    blockchain.create_block(data='block 3', nonce='', prev_hash='TODO', self_hash='TODO', proof_of_work=True)
+    blockchain.create_block(data='block 4', nonce='', prev_hash='TODO', self_hash='TODO', proof_of_work=True)
+    blockchain.create_block(data='block 5', nonce='', prev_hash='TODO', self_hash='TODO', proof_of_work=True)
