@@ -6,27 +6,34 @@ import Block
 
 class Blockchain:
     def __init__(self):
-        self.chain = []
+        self.__chain = []
         self.genesis()
 
     def genesis(self):
-        block = Block.Block('0', str(datetime.datetime.now()), 'genesis', '', '0', '0', True)
-        self.chain.append(block)
+        block = Block.Block('0', str(datetime.datetime.now()), 'genesis', '', '0', True)
+        self.__chain.append(block)
         self.print_feedback("Genesis block created successfully...")
         pass
 
-    def create_block(self, data, nonce, prev_hash, self_hash, proof_of_work):
+    def create_block(self, data, nonce, prev_hash, proof_of_work):
         # find next position in the chain
-        index = len(self.chain)
+        index = len(self.__chain)
 
         # get the genesis timestamp
         timestamp = str(datetime.datetime.now())
 
         # create a new block and add it to the chain
-        block = Block.Block(index, timestamp, data, nonce, prev_hash, self_hash, True)
-        self.chain.append(block)
-        self.print_feedback("Block at index: " + str(index) + " created successfully...")
+        block = Block.Block(index, timestamp, data, nonce, prev_hash, True)
+        self.__chain.append(block)
+        self.print_feedback("Block at index: " + str(index) + " with hash: " + str(block.hash) + " created "
+                                                                                                 "successfully...")
         pass
+
+    def get_all_blocks(self):
+        return self.__chain
+
+    def get_block_at(self, index):
+        return self.__chain[index]
 
     @staticmethod
     def print_feedback(value):
