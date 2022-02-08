@@ -8,6 +8,7 @@ class Blockchain:
     def __init__(self):
         self.__chain = []
         self.genesis()
+        self.pow_solution = "000000"  # !!! do not make this bigger than 4-6 for testing purposes
 
     def genesis(self):
         block = Block.Block('0', str(datetime.datetime.now()), 'genesis', '', '0', True)
