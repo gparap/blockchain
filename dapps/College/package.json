@@ -1,0 +1,16 @@
+{
+  "name": "college",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "ganache": "ganache --wallet.seed myCustomSeed"
+  },
+  "author": "gparap",
+  "license": "MIT",
+  "dependencies": {
+    "ganache": "^7.0.2",
+    "web3": "^1.7.0"
+  }
+}
