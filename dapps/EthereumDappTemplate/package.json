@@ -1,0 +1,14 @@
+{
+  "name": "ethereumdapptemplate",
+  "version": "1.0.0",
+  "description": "Ethereum dapp template using ethers.js and ganache blockchain",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "gparap",
+  "license": "MIT",
+  "dependencies": {
+    "ethers": "^5.5.4"
+  }
+}

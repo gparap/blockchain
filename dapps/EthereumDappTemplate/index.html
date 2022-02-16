@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Ethereum Dapp Template</title>
+    <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js" type="application/javascript"></script>
+  </head>
+  <body>
+    <script>
+      //RPC server endpoind
+      const url = "HTTP://127.0.0.1:8545";
+
+      //Http provider to access the blockchain
+      const provider = new ethers.providers.JsonRpcProvider(url);
+
+      //test blockchain connection
+      console.log("url: " + provider.connection.url + "\n");
+      provider.listAccounts().then((accounts) => {
+        console.log("accounts: " + accounts);
+      });
+    </script>
+  </body>
+</html>
