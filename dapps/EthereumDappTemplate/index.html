@@ -2,10 +2,25 @@
 <html>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Ethereum Dapp Template</title>
     <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js" type="application/javascript"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
   </head>
   <body>
+    <div class="container">
+      <h1>Ethereum Dapp Template</h1>
+      <hr />
+      <div>
+        <input id="input-set-name" type="text" placeholder="enter name"/>
+        <button class="btn btn-dark" id="button-get">Get</button>
+        <button class="btn btn-dark" id="button-set">Set</button>
+      </div>
+      <div>
+        <label id="label-get-name"></label>
+      </div>
+    </div>
     <script>
       //RPC server endpoind
       const url = "HTTP://127.0.0.1:8545";
@@ -13,11 +28,116 @@
       //Http provider to access the blockchain
       const provider = new ethers.providers.JsonRpcProvider(url);
 
-      //test blockchain connection
-      console.log("url: " + provider.connection.url + "\n");
-      provider.listAccounts().then((accounts) => {
+      //set the contract address
+      const contractAddress = "0x4594a9ba9D3c6847bc13b560d8cC68Df41ffC51f";
+
+      //set the contract interface
+      const contractABI = [
+	{
+		"inputs": [],
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_address",
+				"type": "address"
+			}
+		],
+		"name": "getAddressBalance",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getContractName",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getInitialBalance",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_name",
+				"type": "string"
+			}
+		],
+		"name": "setContractName",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	}
+];
+
+      //create contract
+      const contract = new ethers.Contract(contractAddress, contractABI, provider);   
+      
+      //get the account signer
+      const signer = provider.getSigner();
+
+      //connect contract to the account signer for performing state-changing transactions
+      const contractWithSigner = contract.connect(signer);
+
+      //get and set the name with button clicks
+      document.getElementById("button-get").addEventListener("click", getName);
+      document.getElementById("button-set").addEventListener("click", setName);
+      
+      //use contract function to get the value stored in the blockchain
+      function getName() {
+        contract.getContractName().then((name)=>{
+          var labelName = document.getElementById("label-get-name");
+          labelName.innerHTML = "<b>Name:</b> " + name;
+        });
+      }
+        
+      //use contract function to set value to be stored to the blockchain
+      function setName() {
+        var input = document.getElementById("input-set-name");
+        contractWithSigner.setContractName(input.value).then(()=>{
+          //clear UI values
+          input.value = "";
+          document.getElementById("label-get-name").innerHTML = "";
+        });
+      }
+
+      function testBlockchainConnection() {
+        console.log("url: " + provider.connection.url + "\n");
+        provider.listAccounts().then((accounts) => {
         console.log("accounts: " + accounts);
-      });
+        });
+        provider.getBalance("0xAb0651B115d7B4df8d8630CcCBd2C71cF9769b9e").then((balance)=>{
+          console.log("balance: " + ethers.utils.formatEther(balance));
+       });
+      }
     </script>
   </body>
 </html>
