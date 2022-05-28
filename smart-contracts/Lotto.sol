@@ -13,12 +13,14 @@ contract Lotto {
     uint256 gamblesCount;
     address payable private owner;
     address payable[] public gamblers;
+    uint256 profitPercentage;
 
     constructor() {
         //initialize
         pool = 0;
         gamblesCount = 0;
         owner = payable(msg.sender);
+        profitPercentage = 10;
     }
 
     modifier isOwner() {
@@ -34,6 +36,8 @@ contract Lotto {
 
     //add ether to the lottery pool
     function gambleAmount() public payable {
+        //minimum amount of ether required
+        require(msg.value > 1 ether);
 
         //add person address & amount to lists
         gamblers.push(payable(msg.sender));
@@ -54,7 +58,8 @@ contract Lotto {
         return gambles[msg.sender];
     }
 
-    function performTheLottery() private view returns(uint256) {
+    //returns the index of the winning address at random
+    function getWinnerIndex() private view returns(uint256) {
         //randomize
         uint256 random = uint256(keccak256("gparap"));
         uint256 winnerIndex = random % gamblesCount;
@@ -63,8 +68,9 @@ contract Lotto {
         return winnerIndex;
     }
 
+    //transfer pool amount (minus owner profit) to the winner
     function payTheWinner() isOwner public {
-        uint256 winnerIndex = performTheLottery();
+        uint256 winnerIndex = getWinnerIndex();
         address payable winningAddress;
         uint256 i;
 
@@ -72,8 +78,22 @@ contract Lotto {
         for (i = 0; i < gamblesCount; i++) {
             if (i == winnerIndex) {
                 winningAddress = gamblers[i];
-                winningAddress.transfer(address(this).balance);
+                giveProfitToOwner();
+                winningAddress.transfer(pool);
             }
         }
+    }
+
+    //contract owner receives a profit percentage from the lottery pool
+    function giveProfitToOwner() isOwner private {
+        require (profitPercentage > 0);
+
+        //give owner profit from pool
+        uint256 profit = pool * profitPercentage / 100;
+        pool = pool - profit;
+        owner.transfer(profit);
+        
+        //!!! important so as the owner cannot profit more
+        profitPercentage = 0;
     }
 }
