@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright © 2022 gparap
+// Copyright © 2023 gparap
 
 pragma solidity >=0.7.0 <0.9.0;
 

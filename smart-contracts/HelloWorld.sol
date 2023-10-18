@@ -1,4 +1,4 @@
-/*Copyright © 2021 gparap*/
+/*Copyright © 2023 gparap*/
 pragma solidity ^0.4.0;
 
 contract HelloWorld{
