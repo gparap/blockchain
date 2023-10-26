@@ -17,7 +17,7 @@ contract ToDoContract {
     mapping (uint => ToDo) private todos;
 
     //to keep track of the id
-    uint idTracker = 99999999;
+    uint idTracker = 9999;
 
     //to keep track of the todos count
     uint todosTracker = 0;
