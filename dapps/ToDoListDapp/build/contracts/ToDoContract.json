@@ -81,7 +81,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [],
@@ -94,7 +95,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -10272,9 +10274,17 @@
     "name": "solc",
     "version": "0.8.21+commit.d9974bed.Emscripten.clang"
   },
-  "networks": {},
+  "networks": {
+    "5777": {
+      "events": {},
+      "links": {},
+      "address": "0x1f7Ab6c7413d006D3427F7D33a84970ffD77f757",
+      "transactionHash": "0xe96a31bc4a7e08dba9a8107e01e1c0ae351d61843f90f5ecb35d4a881588acd2"
+    }
+  },
   "schemaVersion": "3.4.16",
-  "updatedAt": "2023-10-09T12:28:51.729Z",
+  "updatedAt": "2023-10-11T08:32:48.855Z",
+  "networkType": "ethereum",
   "devdoc": {
     "details": "A To-Do List Contract",
     "kind": "dev",

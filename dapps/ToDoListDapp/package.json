@@ -13,6 +13,7 @@
   "author": "gparap",
   "license": "MIT",
   "dependencies": {
+    "@truffle/contract": "^4.6.31",
     "express": "^4.18.2"
   }
 }
