@@ -22,7 +22,24 @@ contract ToDoContract {
     //to keep track of the todos count
     uint todosTracker = 0;
 
+    //Events
+    event NewToDoEvent(uint,string,string,uint,bool);   //new to-do created
+    event DeletedToDoEvent(uint _id);                   //to-do deleted
+    event CompletedToDoEvent(uint _id);                 //to-do completed
+
     constructor() {
+    }
+
+    function dummy() public view returns(
+        uint _id,
+        string memory _name, 
+        string memory _details,
+        uint _timestamp,
+        bool _isCompleted
+    ){
+        return(
+            1, "dummy", "details", block.timestamp, false
+        );
     }
 
     //create a new todo
@@ -37,7 +54,6 @@ contract ToDoContract {
         idTracker -= 1;
         todosTracker += 1;
     }
-
 
     //delete an existing todo
     function deleteToDo(uint _id) public {
