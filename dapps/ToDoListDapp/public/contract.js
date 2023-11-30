@@ -5,7 +5,7 @@
 const provider = new ethers.providers.JsonRpcProvider("http://localhost:9545/");
 
 //set the contract address
-const contractAddress = "0x9d6C01b2B17584A925666bC49762F157EFaBA566";
+const contractAddress = "0xe965f3aB3BfA07d4c5fA996A349eA78798735279";
         
 //contract interface
 const contractABI = [
@@ -79,32 +79,12 @@ const contractABI = [
   },
   {
     "inputs": [],
-    "name": "dummy",
+    "name": "getCurrentId",
     "outputs": [
       {
         "internalType": "uint256",
-        "name": "_id",
+        "name": "",
         "type": "uint256"
-      },
-      {
-        "internalType": "string",
-        "name": "_name",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
-        "name": "_details",
-        "type": "string"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_timestamp",
-        "type": "uint256"
-      },
-      {
-        "internalType": "bool",
-        "name": "_isCompleted",
-        "type": "bool"
       }
     ],
     "stateMutability": "view",
@@ -220,8 +200,8 @@ const contractABI = [
   }
 ];
 
-//create contract
-const contract = new ethers.Contract(contractAddress, contractABI, provider);   
-      
 //get the account signer
 const signer = provider.getSigner();
+
+//create contract
+const contract = new ethers.Contract(contractAddress, contractABI, signer);

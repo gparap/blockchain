@@ -17,7 +17,10 @@ contract ToDoContract {
     mapping (uint => ToDo) private todos;
 
     //to keep track of the id
-    uint idTracker = 9999;
+    uint idTracker = 9999; //TODO: fix tracker to start from 0
+    function getCurrentId() public view returns(uint) {
+        return idTracker;
+    }
 
     //to keep track of the todos count
     uint todosTracker = 0;
@@ -28,18 +31,6 @@ contract ToDoContract {
     event CompletedToDoEvent(uint _id);                 //to-do completed
 
     constructor() {
-    }
-
-    function dummy() public view returns(
-        uint _id,
-        string memory _name, 
-        string memory _details,
-        uint _timestamp,
-        bool _isCompleted
-    ){
-        return(
-            1, "dummy", "details", block.timestamp, false
-        );
     }
 
     //create a new todo
